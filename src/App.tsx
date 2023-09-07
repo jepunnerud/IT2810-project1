@@ -11,17 +11,21 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 
+const queryClient = new QueryClient()
+
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="about" element={<AboutPage />}></Route>
-        </Routes>
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />}></Route>
+            <Route path="about" element={<AboutPage />}></Route>
+          </Routes>
+        </BrowserRouter>
+      </QueryClientProvider>
     </>
   )
 }
