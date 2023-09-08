@@ -3,6 +3,8 @@ export interface Country {
   flags: Flag
   cca3: string
   independent: boolean
+  population: number
+  area: number
 }
 
 interface Name {
@@ -15,4 +17,8 @@ interface Flag {
   svg: string
   png: string
   alt: string
+}
+
+export interface SortingMap {
+  [key: string]: (a: Country, b: Country) => number
 }
