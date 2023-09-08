@@ -33,42 +33,6 @@
   }
 }
 
-.card {
-  padding: 2rem;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 1rem;
-  height: 15rem;
-  display: flex;
-  flex-direction: column;
-  margin: 0.5rem;
-  height: 240px;
-  width: 320px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  justify-content: center;
-  transition: all 0.25s ease-in-out;
-}
-
-.card p {
-  position: absolute;
-  bottom: 16px;
-  justify-self: flex-end;
-  align-self: center;
-  margin: 0;
-  color: whitesmoke;
-}
-
-.card img {
-  position: relative;
-  max-width: 320px;
-  max-height: 213px;
-}
-
-.card:hover {
-  transform: scale(1.05);
-}
-
 .card-container {
   display: flex;
   flex-wrap: wrap;
