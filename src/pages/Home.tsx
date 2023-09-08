@@ -27,7 +27,7 @@ function HomePage() {
   return (
     <>
       <div className="card-container">
-        {data?.map((c) => <CountryCard country={c} />)}
+        {data?.map((c) => <CountryCard country={c} key={c.cca3} />)}
       </div>
     </>
   )
