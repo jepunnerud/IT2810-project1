@@ -1,15 +1,12 @@
 import { NavBarItem } from '../types'
-import './NavBarStyling.css'
+import './NavBar.css'
 
 const NavBar = (props: { items: NavBarItem[] }) => {
   return (
-    <div className="parent">
+    <div className="nav-bar-parent">
       {props.items.map((item: NavBarItem) => (
         <a href={item.path} key={item.text}>
-          <div className="nav-bar-item">
-            {!item.icon && item.text}
-            <img src={item.icon}></img>
-          </div>
+          <div className="nav-bar-item">{item.text}</div>
         </a>
       ))}
     </div>
