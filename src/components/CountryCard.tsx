@@ -1,4 +1,5 @@
 import { Country } from '../types'
+import './CountryCard.css'
 
 function CountryCard(props: { country: Country }) {
   return (
