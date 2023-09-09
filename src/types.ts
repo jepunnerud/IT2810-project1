@@ -22,3 +22,13 @@ interface Flag {
 export interface SortingMap {
   [key: string]: (a: Country, b: Country) => number
 }
+
+export interface NavBarItem {
+  text: string
+  icon?: string
+  path: string
+}
+
+export interface IconData {
+  [key: string]: string
+}
