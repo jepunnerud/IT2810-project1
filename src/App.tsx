@@ -7,14 +7,28 @@ import InfoPage from './pages/Info'
 import FavouritesPage from './pages/Favourites'
 import AboutPage from './pages/About'
 import NavBar from './components/NavBar'
-//their changesUse theirs
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { NavBarItem } from './types'
+
 const queryClient = new QueryClient()
+
+const navBarItems: NavBarItem[] = [
+  {
+    text: 'Home',
+    path: '/',
+  },
+  {
+    text: 'About',
+    path: '/about',
+  },
+]
 
 function App() {
   return (
     <>
+      <header>
+        <NavBar items={navBarItems}></NavBar>
+      </header>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Routes>
