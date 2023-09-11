@@ -1,10 +1,15 @@
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import HomePage from './pages/Home'
+//our changesUse ours
 import InfoPage from './pages/Info'
 import FavouritesPage from './pages/Favourites'
+import AboutPage from './pages/About'
+import NavBar from './components/NavBar'
+//their changesUse theirs
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
+import { NavBarItem } from './types'
 const queryClient = new QueryClient()
 
 function App() {
