@@ -5,7 +5,7 @@ import HomePage from './pages/Home'
 //our changesUse ours
 import InfoPage from './pages/Info'
 import FavouritesPage from './pages/Favourites'
-import AboutPage from './pages/About'
+//import AboutPage from './pages/About'
 import NavBar from './components/NavBar'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { NavBarItem } from './types'
@@ -18,8 +18,8 @@ const navBarItems: NavBarItem[] = [
     path: '/',
   },
   {
-    text: 'About',
-    path: '/about',
+    text: 'Favourites',
+    path: '/favourites',
   },
 ]
 
