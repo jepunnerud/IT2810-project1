@@ -44,7 +44,7 @@ export default function InfoPage() {
   }
   return(
     <>
-        <h1>This is the about page.</h1>
+        <h1>Info</h1>
         {
           <button onClick={handleOnClick}>
             {message}
