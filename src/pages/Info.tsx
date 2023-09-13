@@ -13,11 +13,11 @@ export default function InfoPage() {
   useEffect(() => {
     setIsFavourite(storedFavourites.includes(countryCode))
 
-    if (storedFavourites.includes(countryCode)) {
-      setMessage('Fjern fra favoritter')
-    } else {
-      setMessage('Legg til favoritt')
-    }
+    setMessage(
+      storedFavourites.includes(countryCode)
+        ? 'Fjern fra favoritter'
+        : 'Legg til favoritt'
+    ) //
   }, [storedFavourites])
 
   function handleOnClick() {

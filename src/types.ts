@@ -1,4 +1,4 @@
-export interface Country {
+interface Country {
   name: Name
   flags: Flag
   cca3: string
@@ -19,16 +19,19 @@ interface Flag {
   alt: string
 }
 
-export interface SortingMap {
+interface SortingMap {
   [key: string]: (a: Country, b: Country) => number
 }
 
-export interface NavBarItem {
+interface NavBarItem {
   text: string
   icon?: string
   path: string
 }
 
-export interface IconData {
+interface IconData {
   [key: string]: string
 }
+
+
+export type { Country, SortingMap, NavBarItem, IconData }

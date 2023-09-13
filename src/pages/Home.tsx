@@ -1,39 +1,14 @@
-import { useQuery } from '@tanstack/react-query'
 import { Country } from '../types'
 import CountryCard from '../components/CountryCard'
 import './Home.css'
 import { useState } from 'react'
-import { SortingMap } from '../types'
+import { useCountries } from '../hooks/Countries'
+import { sortingFns } from '../utils/constants'
 
 function HomePage() {
   const [sortParam, setSortParam] = useState('alphabetically')
 
-  const sortingFns: SortingMap = {
-    alphabetically: (c1: Country, c2: Country) =>
-      c1.name.common > c2.name.common ? 1 : -1,
-    population: (c1: Country, c2: Country) =>
-      c1.population > c2.population ? -1 : 1,
-    area: (c1: Country, c2: Country) => (c1.area > c2.area ? -1 : 1),
-  }
-
-  async function getAllCountries(): Promise<Country[]> {
-    const data = await fetch(
-      'https://restcountries.com/v3.1/all?fields=name,flags,cca3,independent,population,area'
-    ).then((response) => response.json())
-    const countries: Country[] = data
-    const filteredCountries: Country[] = countries.filter(
-      (country: Country) => country.independent
-    )
-    const sortedCountries: Country[] = filteredCountries.sort(
-      sortingFns[sortParam]
-    )
-    return sortedCountries
-  }
-
-  const { data, isLoading } = useQuery({
-    queryFn: () => getAllCountries(),
-    queryKey: ['allCountries'],
-  })
+  const { data, isLoading } = useCountries()
 
   if (isLoading) return <h1>Loading...</h1>
   return (
@@ -54,8 +29,8 @@ function HomePage() {
       </div>
       <div className="card-container">
         {data
-          ?.sort(sortingFns[sortParam])
-          ?.map((c) => <CountryCard country={c} key={c.cca3} />)}
+          .sort(sortingFns[sortParam])
+          .map((c: Country) => <CountryCard country={c} key={c.cca3} />)}
       </div>
     </>
   )
