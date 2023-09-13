@@ -19,7 +19,10 @@
 .dropdown-container label {
   position: relative;
   padding-right: 8px;
+  display: flex;
+  align-items: center;
 }
+
 .loader {
   width: 32px;
   height: 90px;
@@ -45,6 +48,7 @@
   box-sizing: border-box;
   animation: animloaderBack 1s linear infinite alternate;
 }
+
 .loader::before {
   content: '';
   box-sizing: border-box;
@@ -57,6 +61,7 @@
   box-shadow: 0px 15px #ff3d00 inset;
   top: 67px;
 }
+
 .loader::after {
   content: '';
   position: absolute;

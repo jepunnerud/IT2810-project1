@@ -7,12 +7,11 @@ import './Home.css'
 import { useState } from 'react'
 import './SelectionMenu.css'
 
-
 function HomePage() {
   const [sortParam, setSortParam] = useState('alphabetically')
   const { data, isLoading } = useCountries()
 
-  if (isLoading) return <h1>Loading...</h1>
+  if (isLoading) return <span className="loader"></span>
   return (
     <>
       <div className="dropdown-container">
