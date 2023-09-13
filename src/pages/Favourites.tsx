@@ -27,7 +27,7 @@ export default function FavouritesPage() {
     queryFn: () => getFavouriteCountries(),
     queryKey: ['favoriteCountries'],
   })
-  if (isLoading) return <h1>Loading...</h1>
+  if (isLoading) return <span className="loader"></span>
   return (
     <>
       <h1>Favoritter</h1>
