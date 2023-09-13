@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
-import { Country } from '../types'
+import { Country, SortingMap } from '../types'
 import CountryCard from '../components/CountryCard'
 import './Home.css'
 import { useState } from 'react'
-import { SortingMap } from '../types'
+import './SelectionMenu.css'
 
 function HomePage() {
   const [sortParam, setSortParam] = useState('alphabetically')
@@ -35,7 +35,7 @@ function HomePage() {
     queryKey: ['allCountries'],
   })
 
-  if (isLoading) return <h1>Loading...</h1>
+  if (isLoading) return <span className="loader"></span>
   return (
     <>
       <div className="dropdown-container">
