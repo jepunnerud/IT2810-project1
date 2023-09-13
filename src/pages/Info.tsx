@@ -1,13 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import { Country } from '../types';
 
+//Satt til NOR, bør settes til cca3 til landet man har klikket på
+const countryCode="NOR"
 
-export default function InfoPage() {
+function Info(countryCode: string) {
 
-  //Satt til NOR, bør settes til cca3 til landet man har klikket på
-  const countryCode="NOR"
+  const [countryData, setCountryData] = useState<Country[]|null>(null)
+  const getCountryData = async () => {
+    const data = await fetch(
+      `https://restcountries.com/v3.1/alpha/NOR`    //Bytt ut med:`https://restcountries.com/v3.1/alpha/${countryCode}`
+    ).then((response) => response.json())
+    setCountryData(data)
+  }
+  useEffect(() => {
+    getCountryData()
+  }, [])
+ 
   const [isFavourite, setIsFavourite] = useState(false);
   const [message, setMessage] = useState("");
-
 
   const storedFavourites = JSON.parse(localStorage.getItem('favourites') ||'[]')
 
@@ -23,9 +34,8 @@ export default function InfoPage() {
     } 
 
   }, [countryCode]);
-  
-  
-  
+
+
   function handleOnClick(){
 
       if (!isFavourite) {
@@ -42,15 +52,24 @@ export default function InfoPage() {
 
       }
   }
-  return(
-    <>
-        <h1>Info</h1>
-        {
-          <button onClick={handleOnClick}>
-            {message}
-          </button>
-        }
-    </>
-  ) 
+
+  let box = <div> Data missing ...</div>
+  if (countryData && countryData[0]){
+    const data = countryData[0]
+    box = <div>
+      <h1>{data.name.common}</h1>
+      <p>Capital: {data.capital[0]}</p>
+      <p>Continent: {data.continents}</p>
+      <p>Population: {data.population}</p>
+      <p>Area: {data.area} sqk</p>
+      <img src = {data.flags.png} />
+  
+      <button onClick={handleOnClick}>
+        {message}
+      </button>
+    </div>
+  }
+  return box
 }
 
+export default Info
