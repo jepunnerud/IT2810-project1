@@ -8,11 +8,10 @@ export default function FavouritesPage() {
   const { data, isLoading } = useCountries()
   const favoriteCountries: Country[] = data
     ? data.filter(
-        (country: Country) =>
-          storedFavourites?.includes(country.cca3) && country.independent
-      )
+      (country: Country) =>
+        storedFavourites?.includes(country.cca3)
+    )
     : []
-  console.log(favoriteCountries)
   if (isLoading) return <h1>Loading...</h1>
   return (
     <>

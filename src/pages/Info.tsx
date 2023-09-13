@@ -3,9 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useCountries } from '../hooks/Countries';
 
 export default function InfoPage() {
-  //Satt til NOR, bør settes til cca3 til landet man har klikket på
   const { countryCode } = useParams<{ countryCode: string }>()
-  console.log(countryCode)
   const [isFavourite, setIsFavourite] = useState(false)
   const [message, setMessage] = useState('')
 
@@ -19,7 +17,7 @@ export default function InfoPage() {
       storedFavourites.includes(countryCode)
         ? 'Fjern fra favoritter'
         : 'Legg til favoritt'
-    ) //
+    )
   }, [storedFavourites])
 
   function handleOnClick() {
