@@ -33,5 +33,4 @@ interface IconData {
   [key: string]: string
 }
 
-
 export type { Country, SortingMap, NavBarItem, IconData }

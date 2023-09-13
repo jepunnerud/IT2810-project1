@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
+import { useCountries } from '../hooks/Countries';
 
 export default function InfoPage() {
   //Satt til NOR, bør settes til cca3 til landet man har klikket på
-  const countryCode = 'NOR'
+  const { countryCode } = useParams<{ countryCode: string }>()
+  console.log(countryCode)
   const [isFavourite, setIsFavourite] = useState(false)
   const [message, setMessage] = useState('')
 
@@ -12,7 +15,6 @@ export default function InfoPage() {
 
   useEffect(() => {
     setIsFavourite(storedFavourites.includes(countryCode))
-
     setMessage(
       storedFavourites.includes(countryCode)
         ? 'Fjern fra favoritter'
@@ -35,10 +37,25 @@ export default function InfoPage() {
       setMessage('Legg til favoritt')
     }
   }
+
+  const { data } = useCountries()
+  const country = data.find((element: any) => element.cca3 === countryCode);
+
+
+  //Legg inn all info som trengs
   return (
     <>
-      <h1>Info</h1>
-      {<button onClick={handleOnClick}>{message}</button>}
+      <h1>{country.name.common}</h1>
+      <div>
+        <img src={country.flags.png} alt={country.name.common} />
+        {<button onClick={handleOnClick}>{message}</button>}
+      </div>
+      <div className='infoSection'>
+        <p>Hovedstad: {country.capital}</p>
+        <p>Befolkning: {country.population}</p>
+        <p>Verdensdel: {country.region}</p>
+        <p>Størrelse: {country.area}</p>
+      </div>
     </>
   )
 }

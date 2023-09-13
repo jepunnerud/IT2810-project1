@@ -28,9 +28,9 @@ function HomePage() {
         </select>
       </div>
       <div className="card-container">
-        {data
-          .sort(sortingFns[sortParam])
-          .map((c: Country) => <CountryCard country={c} key={c.cca3} />)}
+        {data.sort(sortingFns[sortParam]).map((c: Country) => (
+          <CountryCard country={c} key={c.cca3} />
+        ))}
       </div>
     </>
   )
