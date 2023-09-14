@@ -23,15 +23,14 @@ function Info(countryCode: string) {
   const storedFavourites = JSON.parse(localStorage.getItem('favourites') ||'[]')
 
   useEffect(() => {
-    setIsFavourite(storedFavourites.includes(countryCode));
+    setIsFavourite(storedFavourites.includes(countryCode))
 
     if (storedFavourites.includes(countryCode)) {
-      setMessage("Fjern fra favoritter");
-
+      setMessage('Fjern fra favoritter')
+    } else {
+      setMessage('Legg til favoritt')
     }
-    else{
-      setMessage("Legg til favoritt");
-    } 
+  }, [storedFavourites])
 
   }, [countryCode]);
 
