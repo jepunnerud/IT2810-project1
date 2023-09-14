@@ -11,8 +11,8 @@ import './SearchBar.css'
 
 function HomePage() {
   const [sortParam, setSortParam] = useState('alphabetically')
-
-  const [query, setQuery] = useState<string[]>([])
+  const [searchInput, setSearchInput] = useState('')
+  const [queryData, setQueryData] = useState<string[]>([])
 
   const { data, isLoading } = useQuery({
     queryFn: async () => {
@@ -24,7 +24,15 @@ function HomePage() {
     queryKey: ['allCountries'],
   })
 
-  const search = () => {
+  const handleSearch = (e: InputEvent) => {
+    const query = (e.target as HTMLInputElement).value
+    console.log('Query: ' + query)
+    console.log('Search input state: ' + searchInput)
+    setSearchInput(query)
+    search(query)
+  }
+
+  const search = (query: string) => {
     const searchOptions = {
       keys: ['value'],
       threshold: 0.3,
@@ -33,13 +41,10 @@ function HomePage() {
       data!.map((c: Country) => c.name.common),
       searchOptions
     )
-    const fuseResults: Fuse.FuseResult<string>[] = fuse.search(
-      (document.getElementById('input') as HTMLInputElement).value
-    )
+    const fuseResults: Fuse.FuseResult<string>[] = fuse.search(query)
     const results = [] as string[]
-    console.log(fuseResults)
     fuseResults.map((result) => results.push(result.item))
-    setQuery(results)
+    setQueryData(results)
   }
 
   if (isLoading) return <span className="loader"></span>
@@ -56,7 +61,7 @@ function HomePage() {
             id="input"
             className="searchbar-input"
             placeholder={'Search'}
-            onInput={search}
+            onInput={() => handleSearch}
           ></input>
         </div>
         <div className="dropdown-container">
@@ -75,12 +80,17 @@ function HomePage() {
         </div>
       </div>
       <div className="card-container">
-        {data
-          ?.filter(
-            (c: Country) => query.includes(c.name.common) || query.length === 0
-          )
-          ?.sort(sortingFns[sortParam])
-          ?.map((c: Country) => <CountryCard country={c} key={c.cca3} />)}
+        {queryData.length === 0 && searchInput.length > 0 ? (
+          <span>No countries matched your query</span>
+        ) : (
+          data
+            ?.filter(
+              (c: Country) =>
+                queryData.includes(c.name.common) || queryData.length === 0
+            )
+            ?.sort(sortingFns[sortParam])
+            ?.map((c: Country) => <CountryCard country={c} key={c.cca3} />)
+        )}
       </div>
     </>
   )
