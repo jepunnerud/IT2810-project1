@@ -30,7 +30,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />}></Route>
-            <Route path="info" element={<InfoPage />}></Route>
+            <Route path="info/:countryCode" element={<InfoPage />}></Route>
             <Route path="favourites" element={<FavouritesPage />}></Route>
           </Routes>
         </BrowserRouter>
