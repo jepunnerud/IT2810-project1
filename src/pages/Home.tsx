@@ -1,9 +1,9 @@
 import { useCountries } from '../hooks/Countries'
 import { sortingFns } from '../utils/constants'
-import { useQuery } from '@tanstack/react-query'
-import { Country, SortingMap } from '../types'
+import { Country } from '../types'
 import CountryCard from '../components/CountryCard'
 import './Home.css'
+import '../utils/Loader.css'
 import { useState } from 'react'
 import './SelectionMenu.css'
 
@@ -29,9 +29,9 @@ function HomePage() {
         </select>
       </div>
       <div className="card-container">
-        {data
-          .sort(sortingFns[sortParam])
-          .map((c: Country) => <CountryCard country={c} key={c.cca3} />)}
+        {data.sort(sortingFns[sortParam]).map((c: Country) => (
+          <CountryCard country={c} key={c.cca3} />
+        ))}
       </div>
     </>
   )

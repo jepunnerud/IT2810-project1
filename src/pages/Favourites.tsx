@@ -2,17 +2,17 @@ import { Country } from '../types'
 import CountryCard from '../components/CountryCard'
 import { useCountries } from '../hooks/Countries'
 import { sortingFns } from '../utils/constants'
+import '../utils/Loader.css'
 
 export default function FavouritesPage() {
   const storedFavourites = localStorage.getItem('favourites')
   const { data, isLoading } = useCountries()
   const favoriteCountries: Country[] = data
     ? data.filter(
-      (country: Country) =>
-        storedFavourites?.includes(country.cca3)
-    )
+        (country: Country) => storedFavourites?.includes(country.cca3)
+      )
     : []
-  if (isLoading) return <h1>Loading...</h1>
+  if (isLoading) return <span className="loader"></span>
   return (
     <>
       <h1>Favoritter</h1>

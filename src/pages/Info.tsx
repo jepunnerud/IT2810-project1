@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
-import { useCountries } from '../hooks/Countries';
+import { useParams } from 'react-router-dom'
+import { useCountry } from '../hooks/Countries'
+import '../utils/Loader.css'
 
 export default function InfoPage() {
-  const { countryCode } = useParams<{ countryCode: string }>()
+  let { countryCode } = useParams<{ countryCode: string }>()
+  countryCode = countryCode ? countryCode : ''
   const [isFavourite, setIsFavourite] = useState(false)
   const [message, setMessage] = useState('')
 
@@ -18,7 +20,7 @@ export default function InfoPage() {
         ? 'Fjern fra favoritter'
         : 'Legg til favoritt'
     )
-  }, [storedFavourites])
+  }, [storedFavourites, countryCode])
 
   function handleOnClick() {
     if (!isFavourite) {
@@ -36,11 +38,12 @@ export default function InfoPage() {
     }
   }
 
-  const { data } = useCountries()
-  const country = data.find((element: any) => element.cca3 === countryCode);
+  const { data, isLoading } = useCountry(countryCode)
 
+  if (isLoading) return <span className="loader"></span>
 
-  //Legg inn all info som trengs
+  const country = data[0]
+
   return (
     <>
       <h1>{country.name.common}</h1>
@@ -48,7 +51,7 @@ export default function InfoPage() {
         <img src={country.flags.png} alt={country.name.common} />
         {<button onClick={handleOnClick}>{message}</button>}
       </div>
-      <div className='infoSection'>
+      <div className="infoSection">
         <p>Hovedstad: {country.capital}</p>
         <p>Befolkning: {country.population}</p>
         <p>Verdensdel: {country.region}</p>

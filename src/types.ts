@@ -1,7 +1,9 @@
 interface Country {
   name: Name
-  flags: Flag
   cca3: string
+  capital: string
+  continents: string
+  flags: Flag
   independent: boolean
   population: number
   area: number
