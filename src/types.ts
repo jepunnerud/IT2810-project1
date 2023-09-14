@@ -32,9 +32,3 @@ export interface NavBarItem {
 export interface IconData {
   [key: string]: string
 }
-
-export interface SearchBarData {
-  placeholder: string
-  searchThreshold?: number
-  searchList: String[]
-}

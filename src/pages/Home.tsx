@@ -1,72 +1,86 @@
 import { useQuery } from '@tanstack/react-query'
-import { Country, SortingMap } from '../types'
+import { Country } from '../types'
 import CountryCard from '../components/CountryCard'
-import './Home.css'
 import { useState } from 'react'
+import Fuse from 'fuse.js'
+import { sortingFns } from '../utils/constants'
+import './Home.css'
 import './SelectionMenu.css'
-import SearchBar from '../components/SearchBar'
-import { SearchProvider } from '../context/SearchContext'
+import './SearchBar.css'
 
 function HomePage() {
   const [sortParam, setSortParam] = useState('alphabetically')
 
-  const sortingFns: SortingMap = {
-    alphabetically: (c1: Country, c2: Country) =>
-      c1.name.common > c2.name.common ? 1 : -1,
-    population: (c1: Country, c2: Country) =>
-      c1.population > c2.population ? -1 : 1,
-    area: (c1: Country, c2: Country) => (c1.area > c2.area ? -1 : 1),
-  }
-
-  async function getAllCountries(): Promise<Country[]> {
-    const data = await fetch(
-      'https://restcountries.com/v3.1/all?fields=name,flags,cca3,independent,population,area'
-    ).then((response) => response.json())
-    const countries: Country[] = data
-    const filteredCountries: Country[] = countries.filter(
-      (country: Country) => country.independent
-    )
-    const sortedCountries: Country[] = filteredCountries.sort(
-      sortingFns[sortParam]
-    )
-    return sortedCountries
-  }
+  const [query, setQuery] = useState<string[]>([])
 
   const { data, isLoading } = useQuery({
-    queryFn: () => getAllCountries(),
+    queryFn: async () => {
+      const data = await fetch(
+        'https://restcountries.com/v3.1/all?fields=name,flags,cca3,population,area'
+      ).then((response) => response.json())
+      return data
+    },
     queryKey: ['allCountries'],
   })
+
+  const search = () => {
+    const searchOptions = {
+      keys: ['value'],
+      threshold: 0.3,
+    }
+    const fuse = new Fuse(
+      data!.map((c: Country) => c.name.common),
+      searchOptions
+    )
+    const fuseResults: Fuse.FuseResult<string>[] = fuse.search(
+      (document.getElementById('input') as HTMLInputElement).value
+    )
+    const results = [] as string[]
+    console.log(fuseResults)
+    fuseResults.map((result) => results.push(result.item))
+    setQuery(results)
+  }
 
   if (isLoading) return <span className="loader"></span>
   return (
     <>
-      <SearchProvider>
-        <div className="home-top-container">
-          <SearchBar
-            placeholder="Search"
-            searchList={['1', '2', '3']}
-          ></SearchBar>
-          <div className="dropdown-container">
-            <label htmlFor="sorting-parameter">Sort by </label>
-            <select
-              id="sorting-parameter"
-              value={sortParam}
-              onChange={(e) => {
-                setSortParam(e.target.value)
-              }}
-            >
-              <option value="alphabetically">Name</option>
-              <option value="population">Population</option>
-              <option value="area">Area</option>
-            </select>
-          </div>
+      <div className="home-top-container">
+        <div className="searchbar-container">
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+          />
+          <span className="material-symbols-outlined">search</span>
+          <input
+            id="input"
+            className="searchbar-input"
+            placeholder={'Search'}
+            onInput={search}
+          ></input>
         </div>
-        <div className="card-container">
-          {data
-            ?.sort(sortingFns[sortParam])
-            ?.map((c) => <CountryCard country={c} key={c.cca3} />)}
+        <div className="dropdown-container">
+          <label htmlFor="sorting-parameter">Sort by </label>
+          <select
+            id="sorting-parameter"
+            value={sortParam}
+            onChange={(e) => {
+              setSortParam(e.target.value)
+            }}
+          >
+            <option value="alphabetically">Name</option>
+            <option value="population">Population</option>
+            <option value="area">Area</option>
+          </select>
         </div>
-      </SearchProvider>
+      </div>
+      <div className="card-container">
+        {data
+          ?.filter(
+            (c: Country) => query.includes(c.name.common) || query.length === 0
+          )
+          ?.sort(sortingFns[sortParam])
+          ?.map((c: Country) => <CountryCard country={c} key={c.cca3} />)}
+      </div>
     </>
   )
 }
