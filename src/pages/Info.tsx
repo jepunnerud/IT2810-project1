@@ -8,15 +8,15 @@ function Info() {
   const { countryCode } = useParams()
 
   const [countryData, setCountryData] = useState<Country[] | null>(null)
-  const getCountryData = async () => {
-    const data = await fetch(
-      `https://restcountries.com/v3.1/alpha/${countryCode}`
-    ).then((response) => response.json())
-    setCountryData(data)
-  }
   useEffect(() => {
+    const getCountryData = async () => {
+      const data = await fetch(
+        `https://restcountries.com/v3.1/alpha/${countryCode}`
+      ).then((response) => response.json())
+      setCountryData(data)
+    }
     getCountryData()
-  }, [])
+  }, [countryCode])
 
   const [isFavourite, setIsFavourite] = useState(false)
   const [message, setMessage] = useState('')
@@ -33,7 +33,7 @@ function Info() {
     } else {
       setMessage('Legg til favoritt')
     }
-  }, [storedFavourites])
+  }, [storedFavourites, countryCode])
 
   function handleOnClick() {
     if (!isFavourite) {
