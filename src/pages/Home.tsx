@@ -4,6 +4,8 @@ import CountryCard from '../components/CountryCard'
 import './Home.css'
 import { useState } from 'react'
 import './SelectionMenu.css'
+import SearchBar from '../components/SearchBar'
+import { SearchProvider } from '../context/SearchContext'
 
 function HomePage() {
   const [sortParam, setSortParam] = useState('alphabetically')
@@ -38,25 +40,33 @@ function HomePage() {
   if (isLoading) return <span className="loader"></span>
   return (
     <>
-      <div className="dropdown-container">
-        <label htmlFor="sorting-parameter">Sort by </label>
-        <select
-          id="sorting-parameter"
-          value={sortParam}
-          onChange={(e) => {
-            setSortParam(e.target.value)
-          }}
-        >
-          <option value="alphabetically">Name</option>
-          <option value="population">Population</option>
-          <option value="area">Area</option>
-        </select>
-      </div>
-      <div className="card-container">
-        {data
-          ?.sort(sortingFns[sortParam])
-          ?.map((c) => <CountryCard country={c} key={c.cca3} />)}
-      </div>
+      <SearchProvider>
+        <div className="home-top-container">
+          <SearchBar
+            placeholder="Search"
+            searchList={['1', '2', '3']}
+          ></SearchBar>
+          <div className="dropdown-container">
+            <label htmlFor="sorting-parameter">Sort by </label>
+            <select
+              id="sorting-parameter"
+              value={sortParam}
+              onChange={(e) => {
+                setSortParam(e.target.value)
+              }}
+            >
+              <option value="alphabetically">Name</option>
+              <option value="population">Population</option>
+              <option value="area">Area</option>
+            </select>
+          </div>
+        </div>
+        <div className="card-container">
+          {data
+            ?.sort(sortingFns[sortParam])
+            ?.map((c) => <CountryCard country={c} key={c.cca3} />)}
+        </div>
+      </SearchProvider>
     </>
   )
 }
