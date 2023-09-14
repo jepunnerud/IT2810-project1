@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Country } from '../types'
 import CountryCard from '../components/CountryCard'
+import '../utils/Loader.css'
 import { useState } from 'react'
 import Fuse from 'fuse.js'
 import { sortingFns } from '../utils/constants'

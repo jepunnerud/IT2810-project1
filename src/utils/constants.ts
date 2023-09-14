@@ -1,4 +1,4 @@
-import { SortingMap, Country } from '../types'
+import { Country, SortingMap } from '../types'
 
 const sortingFns: SortingMap = {
   alphabetically: (c1: Country, c2: Country) =>

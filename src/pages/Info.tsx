@@ -1,23 +1,11 @@
 import { useEffect, useState } from 'react'
-import { Country } from '../types'
 import { useParams } from 'react-router-dom'
+import { useCountry } from '../hooks/Countries'
+import '../utils/Loader.css'
 
-//Satt til NOR, bør settes til cca3 til landet man har klikket på
-
-function Info() {
-  const { countryCode } = useParams()
-
-  const [countryData, setCountryData] = useState<Country[] | null>(null)
-  useEffect(() => {
-    const getCountryData = async () => {
-      const data = await fetch(
-        `https://restcountries.com/v3.1/alpha/${countryCode}`
-      ).then((response) => response.json())
-      setCountryData(data)
-    }
-    getCountryData()
-  }, [countryCode])
-
+export default function InfoPage() {
+  let { countryCode } = useParams<{ countryCode: string }>()
+  countryCode = countryCode ? countryCode : ''
   const [isFavourite, setIsFavourite] = useState(false)
   const [message, setMessage] = useState('')
 
@@ -27,12 +15,11 @@ function Info() {
 
   useEffect(() => {
     setIsFavourite(storedFavourites.includes(countryCode))
-
-    if (storedFavourites.includes(countryCode)) {
-      setMessage('Fjern fra favoritter')
-    } else {
-      setMessage('Legg til favoritt')
-    }
+    setMessage(
+      storedFavourites.includes(countryCode)
+        ? 'Fjern fra favoritter'
+        : 'Legg til favoritt'
+    )
   }, [storedFavourites, countryCode])
 
   function handleOnClick() {
@@ -51,23 +38,25 @@ function Info() {
     }
   }
 
-  let box = <div> Data missing ...</div>
-  if (countryData && countryData[0]) {
-    const data = countryData[0]
-    box = (
+  const { data, isLoading } = useCountry(countryCode)
+
+  if (isLoading) return <span className="loader"></span>
+
+  const country = data[0]
+
+  return (
+    <>
+      <h1>{country.name.common}</h1>
       <div>
-        <h1>{data.name.common}</h1>
-        <p>Capital: {data.capital[0]}</p>
-        <p>Continent: {data.continents}</p>
-        <p>Population: {data.population}</p>
-        <p>Area: {data.area} sqk</p>
-        <img src={data.flags.png} />
-
-        <button onClick={handleOnClick}>{message}</button>
+        <img src={country.flags.png} alt={country.name.common} />
+        {<button onClick={handleOnClick}>{message}</button>}
       </div>
-    )
-  }
-  return box
+      <div className="infoSection">
+        <p>Hovedstad: {country.capital}</p>
+        <p>Befolkning: {country.population}</p>
+        <p>Verdensdel: {country.region}</p>
+        <p>Størrelse: {country.area}</p>
+      </div>
+    </>
+  )
 }
-
-export default Info
