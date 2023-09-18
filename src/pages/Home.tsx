@@ -1,10 +1,10 @@
-import { useQuery } from '@tanstack/react-query'
-import { Country } from '../types'
-import CountryCard from '../components/CountryCard'
-import '../utils/Loader.css'
-import { useState } from 'react'
 import Fuse from 'fuse.js'
+import CountryCard from '../components/CountryCard'
+import { Country } from '../types'
+import { useEffect, useState } from 'react'
 import { sortingFns } from '../utils/constants'
+import { useCountries } from '../hooks/Countries'
+import '../utils/Loader.css'
 import './Home.css'
 import './SelectionMenu.css'
 import './SearchBar.css'
@@ -13,24 +13,7 @@ function HomePage() {
   const [sortParam, setSortParam] = useState('alphabetically')
   const [searchInput, setSearchInput] = useState('')
   const [queryData, setQueryData] = useState<string[]>([])
-
-  const { data, isLoading } = useQuery({
-    queryFn: async () => {
-      const data = await fetch(
-        'https://restcountries.com/v3.1/all?fields=name,flags,cca3,population,area'
-      ).then((response) => response.json())
-      return data
-    },
-    queryKey: ['allCountries'],
-  })
-
-  const handleSearch = (e: InputEvent) => {
-    const query = (e.target as HTMLInputElement).value
-    console.log('Query: ' + query)
-    console.log('Search input state: ' + searchInput)
-    setSearchInput(query)
-    search(query)
-  }
+  const { data, isLoading } = useCountries()
 
   const search = (query: string) => {
     const searchOptions = {
@@ -47,6 +30,13 @@ function HomePage() {
     setQueryData(results)
   }
 
+  useEffect(() => {
+    const p = sessionStorage.getItem('sortParam')
+    if (p !== null) {
+      setSortParam(p)
+    }
+  }, [])
+
   if (isLoading) return <span className="loader"></span>
   return (
     <>
@@ -61,7 +51,11 @@ function HomePage() {
             id="input"
             className="searchbar-input"
             placeholder={'Search'}
-            onInput={() => handleSearch}
+            onInput={(e) => {
+              const query = e.currentTarget.value
+              setSearchInput(query)
+              search(query)
+            }}
           ></input>
         </div>
         <div className="dropdown-container">
@@ -71,6 +65,7 @@ function HomePage() {
             value={sortParam}
             onChange={(e) => {
               setSortParam(e.target.value)
+              sessionStorage.setItem('sortParam', e.target.value)
             }}
           >
             <option value="alphabetically">Name</option>
