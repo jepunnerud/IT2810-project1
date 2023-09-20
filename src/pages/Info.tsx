@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useCountry } from '../hooks/Countries'
 import '../utils/Loader.css'
+import './Info.css'
+import { Country } from '../types'
 
 export default function InfoPage() {
   let { countryCode } = useParams<{ countryCode: string }>()
@@ -17,8 +19,8 @@ export default function InfoPage() {
     setIsFavourite(storedFavourites.includes(countryCode))
     setMessage(
       storedFavourites.includes(countryCode)
-        ? 'Fjern fra favoritter'
-        : 'Legg til favoritt'
+        ? 'Remove from favourites'
+        : 'Add to favourites'
     )
   }, [storedFavourites, countryCode])
 
@@ -27,14 +29,12 @@ export default function InfoPage() {
       storedFavourites.push(countryCode)
       localStorage.setItem('favourites', JSON.stringify(storedFavourites))
       setIsFavourite(true)
-      setMessage('Fjern fra favoritter')
     } else {
       const newList: string[] = storedFavourites.filter(
         (code: string) => code !== countryCode
       )
       localStorage.setItem('favourites', JSON.stringify(newList))
       setIsFavourite(false)
-      setMessage('Legg til favoritt')
     }
   }
 
@@ -42,21 +42,23 @@ export default function InfoPage() {
 
   if (isLoading) return <span className="loader"></span>
 
-  const country = data[0]
+  const country: Country = data[0]
 
   return (
-    <>
+    <div className="info-page-container">
       <h1>{country.name.common}</h1>
-      <div>
-        <img src={country.flags.png} alt={country.name.common} />
-        {<button onClick={handleOnClick}>{message}</button>}
+      <div className="content-parent">
+        <div className="flag-button-container">
+          <img src={country.flags.png} alt={country.name.common} />
+          {<button onClick={handleOnClick}>{message}</button>}
+        </div>
+        <div className="info-card">
+          <p>Capital: {country.capital}</p>
+          <p>Population: {country.population}</p>
+          <p>Continent: {country.region}</p>
+          <p>Area: {country.area}</p>
+        </div>
       </div>
-      <div className="infoSection">
-        <p>Hovedstad: {country.capital}</p>
-        <p>Befolkning: {country.population}</p>
-        <p>Verdensdel: {country.region}</p>
-        <p>Størrelse: {country.area}</p>
-      </div>
-    </>
+    </div>
   )
 }

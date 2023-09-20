@@ -1,8 +1,10 @@
 .home-top-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin-left: 20px;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 .card-container {
   display: flex;
