@@ -7,6 +7,7 @@ interface Country {
   independent: boolean
   population: number
   area: number
+  region: string
 }
 
 interface Name {
