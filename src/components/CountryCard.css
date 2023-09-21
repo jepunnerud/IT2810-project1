@@ -2,9 +2,11 @@
   padding: 2rem;
   background-color: #ffffff1a;
   border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
   margin: 0.5rem;
-  width: 20rem;
   height: 15rem;
+  width: 20rem;
   position: relative;
   justify-content: center;
   transition: all 0.15s ease-in-out;
@@ -12,7 +14,7 @@
 
 .card p {
   position: absolute;
-  bottom: 16px;
+  bottom: 1rem;
   justify-self: flex-end;
   align-self: center;
   margin: 0;
