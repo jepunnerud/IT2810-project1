@@ -16,7 +16,7 @@ const navBarItems: NavBarItem[] = [
   },
   {
     text: 'Favourites',
-    path: 'project1/favourites',
+    path: '/project1/favourites',
   },
 ]
 
@@ -27,17 +27,11 @@ function App() {
         <NavBar items={navBarItems}></NavBar>
       </header>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
+        <BrowserRouter basename="/project1">
           <Routes>
-            <Route path="/project1" element={<HomePage />}></Route>
-            <Route
-              path="project1/info/:countryCode"
-              element={<InfoPage />}
-            ></Route>
-            <Route
-              path="project1/favourites"
-              element={<FavouritesPage />}
-            ></Route>
+            <Route path="/" element={<HomePage />}></Route>
+            <Route path="/info/:countryCode" element={<InfoPage />}></Route>
+            <Route path="/favourites" element={<FavouritesPage />}></Route>
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>
