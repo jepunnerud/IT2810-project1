@@ -12,11 +12,11 @@ const queryClient = new QueryClient()
 const navBarItems: NavBarItem[] = [
   {
     text: 'Home',
-    path: '/',
+    path: '/project1',
   },
   {
     text: 'Favourites',
-    path: '/favourites',
+    path: '/project1/favourites',
   },
 ]
 
@@ -27,11 +27,11 @@ function App() {
         <NavBar items={navBarItems}></NavBar>
       </header>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
+        <BrowserRouter basename="/project1">
           <Routes>
             <Route path="/" element={<HomePage />}></Route>
-            <Route path="info/:countryCode" element={<InfoPage />}></Route>
-            <Route path="favourites" element={<FavouritesPage />}></Route>
+            <Route path="/info/:countryCode" element={<InfoPage />}></Route>
+            <Route path="/favourites" element={<FavouritesPage />}></Route>
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>

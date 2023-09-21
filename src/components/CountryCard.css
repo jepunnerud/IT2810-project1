@@ -3,13 +3,11 @@
   background-color: #ffffff1a;
   border-radius: 1rem;
   margin: 0.5rem;
-  height: 240px;
-  width: 320px;
-  display: flex;
-  flex-direction: column;
+  width: 20rem;
+  height: 15rem;
   position: relative;
   justify-content: center;
-  transition: all 0.25s ease-in-out;
+  transition: all 0.15s ease-in-out;
 }
 
 .card p {
@@ -23,7 +21,7 @@
 
 .card img {
   position: relative;
-  max-width: 320px;
+  max-width: 20rem;
   max-height: 213px;
 }
 
