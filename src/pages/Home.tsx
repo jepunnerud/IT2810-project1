@@ -51,6 +51,7 @@ function HomePage() {
             id="input"
             className="searchbar-input"
             placeholder={'Search'}
+            data-testid="searchbar-input"
             onInput={(e) => {
               const query = e.currentTarget.value
               setSearchInput(query)
@@ -63,6 +64,7 @@ function HomePage() {
           <select
             id="sorting-parameter"
             value={sortParam}
+            data-testid="sorting-parameter"
             onChange={(e) => {
               setSortParam(e.target.value)
               sessionStorage.setItem('sortParam', e.target.value)
