@@ -28,8 +28,10 @@ We set up some tools at the start of the project:
 
 ## Testing
 
-We have written tests for the Home page and the Favourites page components. We also have a snapshot test. <br />
+We have written tests for the Home page and the Favourites page components. We also have three snapshot test. <br />
 
-When testing the Home page, we want to check that the page is rendering. We also wanted to test the sorting and filtering parameters, but we could not make working tests for this with the time we had. <br />
+The tests we wrote did not pass the build and lint pipeline due to use of type any. They all run and pass on the same branch: favorites-page-test. But to maintain code quality we decided not to force them to main. Following tests would have been included if we had managed in time:
 
-We also wanted to test the core functonallity of the Favorites page. When no favourites are added to localStorage, no cardContainers (countries) are rendered. If a landcode is stored in localStorage, the country is supposed to be rendered in the favouritesPage. We chose to test for this functionality because it is the key functionality of the favouritespage as well as the program itsef. We tested for this functionality by mocking the api, using Handlers.tsx, mock_data.json and queryprovider.tsx. <br />
+When testing the Home page, we want to check that the page is rendering. We also wanted to test the sorting and filtering parameters. <br />
+
+We also tested the core functonallity of the Favorites page. When no favourites are added to localStorage, no cardContainers (countries) are rendered. If a landcode is stored in localStorage, the country is supposed to be rendered in the favouritesPage. We chose to test for this functionality because it is the key functionality of the favouritespage as well as the program itself. We tested for this functionality by mocking the api, using Handlers.tsx, mock_data.json and queryprovider.tsx. <br />
