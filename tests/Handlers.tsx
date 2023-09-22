@@ -6,7 +6,7 @@ export const server = setupServer(
   // Describe the requests to mock.
   rest.get(
     'https://restcountries.com/v3.1/all?fields=name,flags,cca3,independent,population,area,capital,currency,language,region.json',
-    (req, res, ctx) => {
+    (_req, res, ctx) => {
       return res(ctx.json(mockedData))
     }
   ),
