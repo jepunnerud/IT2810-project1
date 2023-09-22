@@ -1,7 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 
-let customUseCountriesMock: any = null;
-
 
 function useCountries() {
   return useQuery({
@@ -14,11 +12,6 @@ function useCountries() {
     queryKey: ['countries'],
   })
 }
-
-function setUseCountriesMock(mock: any) {
-  customUseCountriesMock = mock;
-}
-
 
 function useCountry(countryCode: string) {
   return useQuery({
@@ -33,5 +26,7 @@ function useCountry(countryCode: string) {
 }
 
 export {
-  useCountries, useCountry, setUseCountriesMock //restcountries.com/v3.1/all?fields=name,flags,cca3,independent,population,area,capital,currency,language,region'
-};
+  useCountries,
+  useCountry,
+  //restcountries.com/v3.1/all?fields=name,flags,cca3,independent,population,area,capital,currency,language,region'
+}
