@@ -36,18 +36,12 @@
 }
 
 .arrow {
-  color: var(--quaternary-color);
+  color: white;
   user-select: none;
-  &.dark {
-    color: var(--dark-quaternary-color);
-  }
   &:hover {
     cursor: pointer;
     &:not(:active) {
-      color: var(--secondary-color);
-      &.dark {
-        color: var(--dark-tertiary-color);
-      }
+      color: gray;
     }
   }
 }
