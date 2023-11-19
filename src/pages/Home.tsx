@@ -43,7 +43,6 @@ function HomePage() {
       const newDrinkOrder = countries
         .sort(sortingFns[sortParam])
         .map((country: Country) => country.cca3)
-      console.log(newDrinkOrder)
       localStorage.setItem('countryOrder', JSON.stringify(newDrinkOrder))
     }
   }, [data, sortParam])
