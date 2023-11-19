@@ -30,3 +30,8 @@
   display: flex;
   align-items: center;
 }
+
+select:focus {
+  border: 1px solid white;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
