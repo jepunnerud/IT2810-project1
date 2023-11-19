@@ -40,10 +40,10 @@ function HomePage() {
   const updateCountryOrder = useCallback(() => {
     if (data) {
       const countries = [...data]
-      const newDrinkOrder = countries
+      const newCountryOrder = countries
         .sort(sortingFns[sortParam])
         .map((country: Country) => country.cca3)
-      localStorage.setItem('countryOrder', JSON.stringify(newDrinkOrder))
+      localStorage.setItem('countryOrder', JSON.stringify(newCountryOrder))
     }
   }, [data, sortParam])
 
