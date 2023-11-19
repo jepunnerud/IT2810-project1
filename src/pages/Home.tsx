@@ -1,7 +1,7 @@
 import Fuse from 'fuse.js'
 import CountryCard from '../components/CountryCard'
 import { Country } from '../types'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { sortingFns } from '../utils/constants'
 import { useCountries } from '../hooks/Countries'
 import '../utils/Loader.css'
@@ -36,6 +36,18 @@ function HomePage() {
       setSortParam(p)
     }
   }, [])
+
+  const updateCountryOrder = useCallback(() => {
+    if (data) {
+      const countries = [...data]
+      const newCountryOrder = countries
+        .sort(sortingFns[sortParam])
+        .map((country: Country) => country.cca3)
+      localStorage.setItem('countryOrder', JSON.stringify(newCountryOrder))
+    }
+  }, [data, sortParam])
+
+  updateCountryOrder()
 
   if (isLoading) return <span className="loader"></span>
   return (

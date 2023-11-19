@@ -3,6 +3,7 @@ import CountryCard from '../components/CountryCard'
 import { useCountries } from '../hooks/Countries'
 import { sortingFns } from '../utils/constants'
 import '../utils/Loader.css'
+import './Favourites.css'
 
 export default function FavouritesPage() {
   const storedFavourites = localStorage.getItem('favourites')
@@ -14,13 +15,13 @@ export default function FavouritesPage() {
     : []
   if (isLoading) return <span className="loader"></span>
   return (
-    <>
-      <h1>Favoritter</h1>
+    <div className="favourites-parent-container">
+      <h1>Favourites</h1>
       <div className="card-container">
         {favoriteCountries
           ?.sort(sortingFns['alphabetically'])
           .map((c) => <CountryCard country={c} />)}
       </div>
-    </>
+    </div>
   )
 }

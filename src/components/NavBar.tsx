@@ -1,14 +1,20 @@
+import { Link } from 'react-router-dom'
 import { NavBarItem } from '../types'
 import './NavBar.css'
 
 const NavBar = (props: { items: NavBarItem[] }) => {
   return (
-    <div className="nav-bar-parent">
-      {props.items.map((item: NavBarItem) => (
-        <a href={item.path} key={item.text}>
-          <div className="nav-bar-item">{item.text}</div>
-        </a>
-      ))}
+    <div className="nav-bar-parent-container">
+      <Link to="/" key="logo">
+        <img src="/logo.png" width="150" height="40"></img>
+      </Link>
+      <div className="nav-bar-parent">
+        {props.items.map((item: NavBarItem) => (
+          <Link to={item.path} key={item.text}>
+            <div className="nav-bar-item">{item.text}</div>
+          </Link>
+        ))}
+      </div>
     </div>
   )
 }

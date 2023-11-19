@@ -35,6 +35,24 @@
   transition: all 0.25s ease-in-out;
 }
 
+.arrow {
+  color: white;
+  user-select: none;
+  &:hover {
+    cursor: pointer;
+    &:not(:active) {
+      color: gray;
+    }
+  }
+}
+
+.mobile-arrows {
+  display: flex;
+  justify-content: center;
+  gap: 6.25rem;
+  width: 100%;
+}
+
 button {
   background-color: #ffffff33;
   border-radius: 1rem;
