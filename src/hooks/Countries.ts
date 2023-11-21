@@ -24,4 +24,12 @@ function useCountry(countryCode: string) {
   })
 }
 
-export { useCountries, useCountry }
+function setFavourite(countryCode: string) {
+  const storedFavourites = JSON.parse(
+    localStorage.getItem('favourites') || '[]'
+  )
+  storedFavourites.push(countryCode)
+  localStorage.setItem('favourites', JSON.stringify(storedFavourites))
+}
+
+export { useCountries, useCountry, setFavourite }
