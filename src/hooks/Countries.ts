@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 
-
 function useCountries() {
   return useQuery({
     queryFn: async () => {
@@ -25,8 +24,17 @@ function useCountry(countryCode: string) {
   })
 }
 
+function setFavourite(countryCode: string) {
+  const storedFavourites = JSON.parse(
+    localStorage.getItem('favourites') || '[]'
+  )
+  storedFavourites.push(countryCode)
+  localStorage.setItem('favourites', JSON.stringify(storedFavourites))
+}
+
 export {
   useCountries,
   useCountry,
+  setFavourite,
   //restcountries.com/v3.1/all?fields=name,flags,cca3,independent,population,area,capital,currency,language,region'
 }
