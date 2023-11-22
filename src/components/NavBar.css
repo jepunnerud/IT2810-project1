@@ -1,15 +1,15 @@
 .nav-bar-parent {
   display: flex;
   flex-direction: row;
-  gap: 15px;
+  gap: 0.9375rem;
   justify-content: right;
-  margin-right: 10px;
+  margin-right: 0.625rem;
 }
 
 .nav-bar-item {
   box-sizing: border-box;
-  height: 60px;
-  width: 80px;
+  height: 3.75rem;
+  width: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +24,7 @@
   bottom: 0;
   left: 0;
   width: 0;
-  height: 2px;
+  height: 0.125rem;
   background-color: white;
   transition: width 0.3s ease;
 }
@@ -34,9 +34,9 @@
   transition: width 0.3s ease;
 }
 
-img {
-  margin-top: 20px;
-  margin-left: 20px;
+.logo {
+  margin-top: 1.25rem;
+  margin-left: 1.25rem;
 }
 
 .parent-container {
@@ -53,7 +53,7 @@ img {
   flex-wrap: wrap;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 31.25rem) {
   .nav-bar-parent-container {
     flex-direction: column;
     align-items: center;

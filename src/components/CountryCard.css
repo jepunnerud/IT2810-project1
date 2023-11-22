@@ -12,9 +12,9 @@
   transition: all 0.15s ease-in-out;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 31.25rem) {
   .card {
-    width: 250px;
+    width: 15.625rem;
   }
 }
 
@@ -30,7 +30,7 @@
 .card img {
   position: relative;
   max-width: 20rem;
-  max-height: 213px;
+  max-height: 13.3125rem;
 }
 
 .card:hover {

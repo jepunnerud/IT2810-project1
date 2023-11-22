@@ -1,9 +1,9 @@
 select {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
+  padding: 0.625rem;
+  font-size: 1rem;
+  border-radius: 0.3125rem;
   background-color: #ffffff1a;
-  border: 1px solid transparent;
+  border: 0.0625rem solid transparent;
   color: white;
   outline: none;
   transition:
@@ -12,7 +12,7 @@ select {
 }
 
 select:hover {
-  border: 1px solid gray;
+  border: 0.0625rem solid gray;
   cursor: pointer;
 }
 
@@ -24,7 +24,7 @@ select::after {
   content: '\25BC';
   position: absolute;
   top: 50%;
-  right: 10px;
+  right: 0.625rem;
   transform: translateY(-50%);
   pointer-events: none;
 }

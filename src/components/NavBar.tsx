@@ -6,7 +6,7 @@ const NavBar = (props: { items: NavBarItem[] }) => {
   return (
     <div className="nav-bar-parent-container">
       <Link to="/" key="logo">
-        <img src="/logo.png" width="150" height="40"></img>
+        <img className="logo" src="/logo.png" width="150" height="40"></img>
       </Link>
       <div className="nav-bar-parent">
         {props.items.map((item: NavBarItem) => (
