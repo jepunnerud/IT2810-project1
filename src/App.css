@@ -6,8 +6,8 @@
   display: flex;
   flex-direction: column;
   margin: 0.5rem;
-  height: 240px;
-  width: 320px;
+  height: 15rem;
+  width: 20rem;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -17,7 +17,7 @@
 
 .card p {
   position: absolute;
-  bottom: 16px;
+  bottom: 1rem;
   justify-self: flex-end;
   align-self: center;
   margin: 0;
@@ -26,8 +26,8 @@
 
 .card img {
   position: relative;
-  max-width: 320px;
-  max-height: 213px;
+  max-width: 20rem;
+  max-height: 13.3125rem;
 }
 
 .card:hover {
@@ -52,7 +52,7 @@ header {
   position: relative;
   top: 0;
   z-index: 999;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 main {
