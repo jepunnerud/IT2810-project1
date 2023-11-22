@@ -20,7 +20,7 @@ export default function FavouritesPage() {
       <div className="card-container">
         {favoriteCountries
           ?.sort(sortingFns['alphabetically'])
-          .map((c) => <CountryCard country={c} />)}
+          .map((c) => <CountryCard country={c} key={c.cca3} />)}
       </div>
     </div>
   )
