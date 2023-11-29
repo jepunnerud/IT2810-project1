@@ -4,7 +4,7 @@ import './NavBar.css'
 
 const NavBar = (props: { items: NavBarItem[] }) => {
   return (
-    <div className="nav-bar-parent-container">
+    <div className="nav-bar-parent-container" data-testid="navbar-container">
       <Link to="/" key="logo">
         <img className="logo" src="/logo.png" width="150" height="40"></img>
       </Link>

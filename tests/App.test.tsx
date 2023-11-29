@@ -3,6 +3,7 @@ import { render, waitFor, screen, fireEvent } from '@testing-library/react'
 import HomePage from '../src/pages/Home' // assuming that App is located in the src folder
 import { beforeEach, describe, expect, test, afterEach } from 'vitest'
 import { QueryProvider } from './query-provider.tsx'
+import { MemoryRouter } from 'react-router-dom'
 
 describe('Home Page Snapshot Test', () => {
   beforeEach(() => {
@@ -17,7 +18,9 @@ describe('Home Page Snapshot Test', () => {
   const renderHomePage = () => {
     return render(
       <QueryProvider>
-        <HomePage />
+        <MemoryRouter>
+          <HomePage />
+        </MemoryRouter>
       </QueryProvider>
     )
   }
